@@ -70,3 +70,41 @@
                 }
             });
         });
+        
+        document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const btn = document.getElementById("submitBtn");
+    btn.innerText = "Sending...";
+    btn.disabled = true;
+
+    let formData = {
+        name: this.name.value,
+        email: this.email.value,
+        message: this.message.value
+    };
+
+    fetch("https://script.google.com/macros/s/AKfycbwbpkza0uOELB75UBCxjuuNRqJUq7i9F9kUI8etTtCWcGTn7oj-3ZE0l1vw4XBMPf41EA/exec", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData)
+    })
+    .then(res => res.json())
+    .then(data => {
+        btn.innerText = "Send Message";
+        btn.disabled = false;
+
+        if (data.success) {
+            alert("Message Sent Successfully!");
+            document.getElementById("contactForm").reset();
+        } else {
+            alert("Error: " + data.error);
+        }
+    })
+    .catch(err => {
+        btn.innerText = "Send Message";
+        btn.disabled = false;
+        alert("Network Error!");
+        console.error(err);
+    });
+});
