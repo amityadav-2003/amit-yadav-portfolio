@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amit Yadav - Enterprise Digital Solutions</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark: #050505;
+            --bg-card: #0f0f0f;
+            --primary: #6366f1; /* Indigo */
+            --secondary: #ec4899; /* Pink */
+            --accent: #10b981; /* Emerald */
+            --text-main: #ffffff;
+            --text-muted: #9ca3af;
+            --gradient-main: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --card-hover: rgba(255, 255, 255, 0.03);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* --- Utilities --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--gradient-main);
+            color: white;
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 40px rgba(99, 102, 241, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .section-title h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #fff, #9ca3af);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        span.highlight {
+            color: var(--primary);
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- Header --- */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 0;
+            z-index: 1000;
+            transition: 0.3s;
+            background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-main);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: white;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 80px;
+            overflow: hidden;
+            background: radial-gradient(circle at top right, rgba(99, 102, 241, 0.08), transparent 40%);
+        }
+
+        .hero-bg-glow {
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: var(--primary);
+            filter: blur(180px);
+            opacity: 0.12;
+            border-radius: 50%;
+            top: -200px;
+            right: -200px;
+            z-index: -1;
+            animation: pulse 8s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.1; transform: scale(1); }
+            100% { opacity: 0.2; transform: scale(1.1); }
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .hero-text p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 550px;
+            line-height: 1.7;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+        }
+
+        /* Hero Image - Code Window Effect */
+        .hero-image {
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .code-window {
+            background: #1e1e1e;
+            border-radius: 16px;
+            box-shadow: 0 50px 100px -20px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.1);
+            overflow: hidden;
+            transform: rotateY(-10deg) rotateX(5deg);
+            transition: transform 0.5s ease;
+        }
+        
+        .hero-image:hover .code-window {
+            transform: rotateY(0) rotateX(0);
+        }
+
+        .window-header {
+            background: #2d2d2d;
+            padding: 12px 16px;
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid #333;
+        }
+
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .red { background: #ff5f56; }
+        .yellow { background: #ffbd2e; }
+        .green { background: #27c93f; }
+
+        .window-body {
+            padding: 20px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9rem;
+            color: #d4d4d4;
+            line-height: 1.6;
+        }
+
+        .code-line { display: block; margin-bottom: 5px; }
+        .kwd { color: #569cd6; } /* Keyword */
+        .str { color: #ce9178; } /* String */
+        .fn { color: #dcdcaa; } /* Function */
+        .cls { color: #4ec9b0; } /* Class */
+
+        /* --- Tech Stack Ticker --- */
+        .tech-ticker-wrapper {
+            width: 100%;
+            overflow: hidden;
+            padding: 60px 0;
+            background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.02) 20%, transparent);
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .ticker-track {
+            display: flex;
+            width: calc(200px * 10); /* Estimate width */
+            animation: scroll 30s linear infinite;
+        }
+
+        .tech-item {
+            width: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            opacity: 0.7;
+            transition: 0.3s;
+        }
+        
+        .tech-item:hover {
+            opacity: 1;
+            color: white;
+            transform: scale(1.05);
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-200px * 5)); }
+        }
+
+        /* --- Process Section --- */
+        .process {
+            padding: 120px 0;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .process-card {
+            position: relative;
+            padding: 30px 20px;
+            border-left: 2px solid rgba(255,255,255,0.1);
+        }
+
+        .process-number {
+            font-size: 4rem;
+            font-weight: 800;
+            color: rgba(255,255,255,0.05);
+            position: absolute;
+            top: 0;
+            left: 20px;
+            line-height: 1;
+        }
+
+        .process-title {
+            font-size: 1.4rem;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        /* --- Services (Bento Grid) --- */
+        .services {
+            padding: 100px 0;
+            background: #080808;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 300px);
+            gap: 20px;
+        }
+
+        .bento-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(99, 102, 241, 0.3);
+            background: var(--card-hover);
+        }
+
+        .bento-card.large {
+            grid-column: span 2;
+        }
+
+        .bento-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .bento-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .bento-content ul {
+            list-style: none;
+            margin-top: 15px;
+            color: var(--text-muted);
+        }
+        
+        .bento-content li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .bento-content li i {
+            color: var(--accent);
+            font-size: 0.8rem;
+        }
+
+        /* --- Portfolio (Detailed) --- */
+        .portfolio {
+            padding: 120px 0;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            overflow: hidden;
+            margin-bottom: 60px;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            transition: 0.3s;
+        }
+        
+        .project-card:hover {
+            border-color: rgba(255,255,255,0.15);
+            box-shadow: 0 20px 50px -10px rgba(0,0,0,0.5);
+        }
+
+        .project-img-wrapper {
+            position: relative;
+            height: 100%;
+            min-height: 400px;
+            overflow: hidden;
+        }
+
+        .project-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        
+        .project-card:hover .project-img {
+            transform: scale(1.05);
+        }
+
+        .project-content {
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .project-meta {
+            color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+
+        .project-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .project-desc {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-size: 1.05rem;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .tech-tag {
+            padding: 6px 14px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: #ccc;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* --- CTA --- */
+        .cta {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .cta-box {
+            background: linear-gradient(180deg, #111, #0a0a0a);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 100px 40px;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .cta-bg-glow {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 300px;
+            background: radial-gradient(circle at center, rgba(99,102,241,0.15), transparent 70%);
+            z-index: 0;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: #020202;
+            padding: 80px 0 30px;
+            border-top: 1px solid var(--glass-border);
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero-content { grid-template-columns: 1fr; text-align: center; }
+            .hero-text h1 { font-size: 3rem; }
+            .hero-btns { justify-content: center; }
+            .hero-image { display: none; } /* Hide 3D code window on mobile */
+            
+            .bento-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+            .bento-card.large { grid-column: span 1; }
+            
+            .project-card { grid-template-columns: 1fr; }
+            .project-img-wrapper { min-height: 250px; }
+            
+            .footer-grid { grid-template-columns: 1fr; }
+            nav ul { display: none; }
+            .mobile-menu-btn { display: block; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-cube"></i></div>
+                Amit Yadav
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#process">Process</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#work">Work</a></li>
+                    <li><a href="#contact" class="btn btn-primary" style="padding: 10px 25px; font-size: 0.9rem;">Start Project</a></li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-bg-glow"></div>
+        
+        <div class="container hero-content">
+            <div class="hero-text">
+                <div class="section-tag"><i class="fas fa-circle" style="font-size: 8px; margin-right: 8px;"></i> Available for new projects</div>
+                <h1>Building <span class="highlight">Scalable</span> Digital Products.</h1>
+                <p>I architect and develop high-performance web applications using Java Spring Boot and Angular. From complex backends to pixel-perfect frontends, I deliver enterprise-grade solutions.</p>
+                <div class="hero-btns">
+                    <a href="#contact" class="btn btn-primary">Book a Call <i class="fas fa-arrow-right"></i></a>
+                    <a href="#work" class="btn btn-outline">View Case Studies</a>
+                </div>
+            </div>
+            
+            <div class="hero-image">
+                <div class="code-window">
+                    <div class="window-header">
+                        <div class="dot red"></div>
+                        <div class="dot yellow"></div>
+                        <div class="dot green"></div>
+                        <span style="font-size: 0.8rem; color: #888; margin-left: 10px;">BackendController.java</span>
+                    </div>
+                    <div class="window-body">
+                        <span class="code-line"><span class="kwd">@RestController</span></span>
+                        <span class="code-line"><span class="kwd">@RequestMapping</span>(<span class="str">"/api/v1/projects"</span>)</span>
+                        <span class="code-line"><span class="kwd">public class</span> <span class="cls">ProjectController</span> {</span>
+                        <span class="code-line"></span>
+                        <span class="code-line">  <span class="kwd">@Autowired</span></span>
+                        <span class="code-line">  <span class="kwd">private</span> <span class="cls">ProjectService</span> service;</span>
+                        <span class="code-line"></span>
+                        <span class="code-line">  <span class="kwd">@GetMapping</span></span>
+                        <span class="code-line">  <span class="kwd">public</span> <span class="cls">ResponseEntity</span>&lt;List&lt;Project&gt;&gt; <span class="fn">getAll</span>() {</span>
+                        <span class="code-line">    <span class="kwd">return</span> <span class="cls">ResponseEntity</span>.ok(service.findAll());</span>
+                        <span class="code-line">  }</span>
+                        <span class="code-line">}</span>
+                        <span class="code-line"><span class="cls">// Ready to deploy... 🚀</span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Ticker -->
+    <div class="tech-ticker-wrapper">
+        <div class="ticker-track">
+            <!-- Duplicated items for infinite scroll effect -->
+            <div class="tech-item"><i class="fab fa-java"></i> Java</div>
+            <div class="tech-item"><i class="fas fa-leaf"></i> Spring Boot</div>
+            <div class="tech-item"><i class="fab fa-angular"></i> Angular</div>
+            <div class="tech-item"><i class="fab fa-aws"></i> AWS</div>
+            <div class="tech-item"><i class="fas fa-database"></i> MySQL</div>
+            <div class="tech-item"><i class="fab fa-docker"></i> Docker</div>
+            <div class="tech-item"><i class="fab fa-git-alt"></i> Git</div>
+            <div class="tech-item"><i class="fab fa-js"></i> TypeScript</div>
+            <!-- Duplicate again -->
+            <div class="tech-item"><i class="fab fa-java"></i> Java</div>
+            <div class="tech-item"><i class="fas fa-leaf"></i> Spring Boot</div>
+            <div class="tech-item"><i class="fab fa-angular"></i> Angular</div>
+            <div class="tech-item"><i class="fab fa-aws"></i> AWS</div>
+            <div class="tech-item"><i class="fas fa-database"></i> MySQL</div>
+        </div>
+    </div>
+
+    <!-- Process Section -->
+    <section class="process" id="process">
+        <div class="container">
+            <div class="section-title">
+                <div class="section-tag">Methodology</div>
+                <h2>How I Work</h2>
+                <p>A structured approach to ensure your project is delivered on time and bug-free.</p>
+            </div>
+            
+            <div class="process-grid">
+                <div class="process-card">
+                    <div class="process-number">01</div>
+                    <div class="process-title">Discovery</div>
+                    <p style="color: var(--text-muted);">Understanding your business requirements, target audience, and technical feasibility.</p>
+                </div>
+                <div class="process-card">
+                    <div class="process-number">02</div>
+                    <div class="process-title">Architecture</div>
+                    <p style="color: var(--text-muted);">Designing secure database schemas and scalable API structures using Spring Boot.</p>
+                </div>
+                <div class="process-card">
+                    <div class="process-number">03</div>
+                    <div class="process-title">Development</div>
+                    <p style="color: var(--text-muted);">Writing clean, maintainable code with unit testing and regular updates.</p>
+                </div>
+                <div class="process-card">
+                    <div class="process-number">04</div>
+                    <div class="process-title">Deployment</div>
+                    <p style="color: var(--text-muted);">Launching to AWS/Cloud servers with CI/CD pipelines and monitoring.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section (Bento Grid) -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <div class="section-tag">Services</div>
+                <h2>Expertise & Solutions</h2>
+            </div>
+
+            <div class="bento-grid">
+                <!-- Large Card -->
+                <div class="bento-card large">
+                    <div>
+                        <div class="bento-icon"><i class="fas fa-layer-group"></i></div>
+                        <div class="bento-content">
+                            <h3>Full Stack Development</h3>
+                            <p style="color: var(--text-muted);">End-to-end application development. I handle everything from the database design to the interactive frontend.</p>
+                            <ul style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <li><i class="fas fa-check"></i> Single Page Apps (SPA)</li>
+                                <li><i class="fas fa-check"></i> RESTful API Design</li>
+                                <li><i class="fas fa-check"></i> Authentication (OAuth2/JWT)</li>
+                                <li><i class="fas fa-check"></i> Real-time Features</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Small Card -->
+                <div class="bento-card">
+                    <div class="bento-icon"><i class="fas fa-server"></i></div>
+                    <div class="bento-content">
+                        <h3>Backend Systems</h3>
+                        <p style="color: var(--text-muted);">Robust server-side logic using Java & Spring Boot. Focused on speed & security.</p>
+                    </div>
+                </div>
+
+                <!-- Small Card -->
+                <div class="bento-card">
+                    <div class="bento-icon"><i class="fas fa-paint-brush"></i></div>
+                    <div class="bento-content">
+                        <h3>Frontend Architecture</h3>
+                        <p style="color: var(--text-muted);">Responsive, accessible UIs built with Angular, HTML5, and Tailwind/Bootstrap.</p>
+                    </div>
+                </div>
+
+                <!-- Large Card -->
+                <div class="bento-card large">
+                    <div>
+                        <div class="bento-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                        <div class="bento-content">
+                            <h3>Cloud & DevOps</h3>
+                            <p style="color: var(--text-muted);">Deployment and scaling strategies to ensure your app stays online and performs well under load.</p>
+                            <ul>
+                                <li><i class="fas fa-check"></i> AWS EC2 & S3 Integration</li>
+                                <li><i class="fas fa-check"></i> Database Management (MySQL)</li>
+                                <li><i class="fas fa-check"></i> Payment Gateway Integration (Razorpay)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="work">
+        <div class="container">
+            <div class="section-title">
+                <div class="section-tag">Featured Work</div>
+                <h2>Selected Case Studies</h2>
+            </div>
+
+            <!-- Project 1 -->
+            <div class="project-card">
+                <div class="project-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1499415479124-43c32433a620?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="VirtuStrike" class="project-img">
+                </div>
+                <div class="project-content">
+                    <div class="project-meta">Music & Media Platform</div>
+                    <h3 class="project-title">VirtuStrike</h3>
+                    <p class="project-desc">A comprehensive music streaming and management platform. I built the entire ecosystem including a user-facing player and a robust Admin Dashboard for content management.</p>
+                    
+                    <div class="tech-tags">
+                        <span class="tech-tag">Spring Boot</span>
+                        <span class="tech-tag">Angular</span>
+                        <span class="tech-tag">MySQL</span>
+                        <span class="tech-tag">AWS</span>
+                    </div>
+                    
+                    <div>
+                        <ul style="list-style: none; margin-bottom: 25px; color: var(--text-muted);">
+                            <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: var(--accent); margin-right: 10px;"></i> Integrated Razorpay for subscriptions</li>
+                            <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: var(--accent); margin-right: 10px;"></i> MSG91 SMS Notification System</li>
+                            <li><i class="fas fa-check" style="color: var(--accent); margin-right: 10px;"></i> Admin panel for user/song management</li>
+                        </ul>
+                    </div>
+
+                    <a href="#" class="btn btn-outline" style="width: fit-content;">View Live Project</a>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-card">
+                <div class="project-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1555421689-491a97ff2040?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="WordSculptor" class="project-img">
+                </div>
+                <div class="project-content">
+                    <div class="project-meta">SaaS / Tooling</div>
+                    <h3 class="project-title">WordSculptor</h3>
+                    <p class="project-desc">A high-performance text analysis tool designed to process large, unstructured datasets. It provides detailed frequency analysis and insights for content creators and researchers.</p>
+                    
+                    <div class="tech-tags">
+                        <span class="tech-tag">Java Servlet</span>
+                        <span class="tech-tag">JSP</span>
+                        <span class="tech-tag">Algorithms</span>
+                    </div>
+
+                    <div>
+                        <ul style="list-style: none; margin-bottom: 25px; color: var(--text-muted);">
+                            <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: var(--accent); margin-right: 10px;"></i> Advanced Stop-word removal algorithms</li>
+                            <li style="margin-bottom: 8px;"><i class="fas fa-check" style="color: var(--accent); margin-right: 10px;"></i> Noise reduction for cleaner data</li>
+                            <li><i class="fas fa-check" style="color: var(--accent); margin-right: 10px;"></i> Web-based interactive interface</li>
+                        </ul>
+                    </div>
+
+                    <a href="#" class="btn btn-outline" style="width: fit-content;">View Case Study</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="contact">
+        <div class="container">
+            <div class="cta-box">
+                <div class="cta-bg-glow"></div>
+                <div class="cta-content">
+                    <h2 style="font-size: 3.5rem; margin-bottom: 20px;">Ready to Scale?</h2>
+                    <p style="font-size: 1.2rem; color: #ccc; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                        I am currently accepting new projects. If you need a reliable developer to bring your idea to life, let's connect.
+                    </p>
+                    <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                        <a href="mailto:amityadavtalen17@gmail.com" class="btn btn-primary">Email Me</a>
+                        <a href="tel:+919753523477" class="btn btn-outline"><i class="fas fa-phone"></i> +91-9753523477</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="logo" style="margin-bottom: 20px;">Amit Yadav</div>
+                    <p style="max-width: 300px; margin-bottom: 20px;">
+                        Professional Full Stack Developer delivering secure and scalable digital solutions for modern businesses.
+                    </p>
+                    <div class="social-links">
+                        <a href="https://linkedin.com/in/amit-yadav-talen" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/amityadav-2003" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="mailto:amityadavtalen17@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 style="color: white; margin-bottom: 20px;">Services</h4>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 10px;"><a href="#" style="color: inherit; text-decoration: none;">Web Development</a></li>
+                        <li style="margin-bottom: 10px;"><a href="#" style="color: inherit; text-decoration: none;">Backend API</a></li>
+                        <li style="margin-bottom: 10px;"><a href="#" style="color: inherit; text-decoration: none;">Cloud Integration</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 style="color: white; margin-bottom: 20px;">Legal</h4>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 10px;"><a href="#" style="color: inherit; text-decoration: none;">Privacy Policy</a></li>
+                        <li style="margin-bottom: 10px;"><a href="#" style="color: inherit; text-decoration: none;">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 style="color: white; margin-bottom: 20px;">Contact</h4>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 10px;">Indore, India</li>
+                        <li style="margin-bottom: 10px;">amityadavtalen17@gmail.com</li>
+                        <li style="margin-bottom: 10px;">+91-9753523477</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px; font-size: 0.85rem;">
+                &copy; 2025 Amit Yadav. Built with <i class="fas fa-heart" style="color: var(--secondary);"></i> and Java.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
